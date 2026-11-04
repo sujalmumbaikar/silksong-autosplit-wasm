@@ -784,6 +784,10 @@ pub enum Split {
     ///
     /// Splits when entering the full Cradle area, past the ventrica terminus
     EnterTheCradle,
+    /// Grandmother Silk Challenged (Boss)
+    ///
+    /// Splits when challenging the Grandmother Silk boss
+    GrandmotherSilkChallenged,
     /// Pale Nails (Skill)
     ///
     /// Splits when obtaining Pale Nails
@@ -2944,6 +2948,10 @@ pub fn continuous_splits(split: &Split, e: &Env, store: &mut Store) -> Option<Sp
         // endregion: PutrifiedDucts
 
         // region: TheCradle
+        Split::GrandmotherSilkChallenged => {
+            should_split(mem.deref(&pd.disable_pause).unwrap_or_default() 
+                && mem.read_string(&gm.scene_name).unwrap_or_default() == "Cradle_03")
+        }
         Split::Lace2 => should_split(mem.deref(&pd.defeated_lace_tower).unwrap_or_default()),
         Split::PaleNails => should_split(mem.deref(&pd.has_silk_boss_needle).unwrap_or_default()),
         // endregion: TheCradle
